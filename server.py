@@ -6,14 +6,15 @@ from flask_ckeditor import CKEditor
 from flask_login import LoginManager, login_required, current_user, UserMixin, logout_user, login_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from notifier import Email
+import os
 
 login_manager = LoginManager()
 app = Flask(__name__)
 ckeditor = CKEditor(app)
 db = SQLAlchemy()
 email = Email()
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blogIt.db"
-app.config['SECRET_KEY'] = 'secretkeygoeshere'
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URI", 'sqlite:///blogIt.db')
+app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
 
 db.init_app(app)
 login_manager.init_app(app)
@@ -124,7 +125,7 @@ def home():
                                blog_data=random_blog, user=current_user)
 
 
-@app.route("/userdash/<string:name>",methods=["GET", "POST"])
+@app.route("/userdash/<string:name>", methods=["GET", "POST"])
 @login_required
 def dash(name):
     if current_user.is_authenticated:
@@ -135,7 +136,7 @@ def dash(name):
         return redirect(url_for('login_user'))
 
 
-@app.route("/blog/<string:title>",methods=["GET", "POST"])
+@app.route("/blog/<string:title>", methods=["GET", "POST"])
 def blog(title):
     id = request.args.get("id")
     blog_data = db.get_or_404(Blogs, id)
@@ -177,7 +178,7 @@ def update(user, id, title):
     return render_template("Create.html", is_edit=True, blog=data)
 
 
-@app.route("/delete/<string:user>/<int:id>/<string:title>",methods=["GET", "POST"])
+@app.route("/delete/<string:user>/<int:id>/<string:title>", methods=["GET", "POST"])
 def delete(id, title, user):
     delete_data = db.get_or_404(Blogs, id)
     g.email_collector()
@@ -187,4 +188,4 @@ def delete(id, title, user):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
