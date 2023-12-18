@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog-{{blog.Title}}</title>
+  </head>
+  <body>
+    {% include "./components/header.html" %}
+    <div class="relative top-[5rem] p-4 w-full h-auto mb-12">
+      <div class="w-full md:px-[6rem]">
+        <div class="w-full ">
+          <h1
+            class="font-['Outfit'] font-semibold text-[#2C2C2C] text-[2.5rem] w-full md:text-[4rem]"
+          >
+            {{blog.Title}} 
+          </h1>
+          <div class="flex items-center mb-4 mt-4">
+            <div
+              class="w-[3rem] h-[3rem] rounded-full relative row-span-2 bg-[#FFD233]"
+            ></div>
+            <div class="ml-2">
+              <p
+                class="font-['Outfit'] font-regular text-[#2c2c2c] md:text-[1rem] lg:text-[1.3rem]"
+              >
+                @{{blog.SubTitle}}
+              </p>
+              <p
+                class="ont-['Outfit'] font-regular text-[#2c2c2c] md:text-[.7rem] lg:text-[1rem]"
+              >
+                {{blog.Date}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center w-full">
+        <div class="h-[25rem] relative w-full bg-[#2c2c2c] rounded-2xl mb-10">
+          <img
+            src="{{blog.ImgUrl}}"
+            alt=""
+            class="relative object-cover h-full w-full rounded-2xl"
+          />
+        </div>
+        </div>
+        <div class="relative mb-12 mt-2 pl-4 w-full md:w-[80%] text-[1rem] md:text-[1.5rem] text-[#2C2C2C] font-['Outfit']">
+          <p class="">
+            {{blog.BlogContent|safe()}}
+          </p>
+        </div>
+      </div>
+    </div>
+    {% include "./components/footer.html" %}
+  </body>
+</html>

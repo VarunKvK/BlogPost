@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  </head>
+  <body>
+    {% include "./components/header.html" %}
+    <div class="h-auto w-full relative mb-10">
+      <h1
+        class="font-['Outfit'] font-semibold text-[#2C2C2C] text-[5rem] md:text-[8rem] p-8"
+      >
+        Blog Your Day
+        <span class="relative -left-[1rem] text-[1rem] font-medium"
+          ><a href="{{url_for('create',name=current_user.Username)}}" class=""
+            ><span class="underline underline-offset-2 underline-[#2C2C2C]"
+              >Create Today</span
+            ><iconify-icon
+              icon="ep:back"
+              rotate="-90deg"
+              class="relative top-[.2rem] animate-bounce"
+            ></iconify-icon></a
+        ></span>
+      </h1>
+      {%if not blog_data%}
+      <div class="flex justify-center p-4">
+        <a
+          href="{{url_for('create')}}"
+          class="text-center w-[90%] h-[4rem] rounded-full bg-[#FFD233] p-2 text-[#FFF] md:hover:bg-[#fff] md:hover:border-[1px] md:hover:border-[#2c2c2c] md:hover:text-[#2c2c2c] transition ease-in-out duration-1500 delay-150"
+          >Create Blog</a
+        >
+      </div>
+      {%else%}
+      <div
+        class="md:px-10 h-auto w-full grid grid-rows-auto gap-[20px] place-items-center md:grid-rows-2 md:grid-cols-2"
+      >
+        <div
+          class="w-[90%] h-[30rem] relative rounded-[25px] md:row-span-2 md:h-full md:w-full"
+        >
+          <a href="{{url_for('blog',id=blog_data.Id,title=blog_data.Title)}}" class="">
+            <img
+              src="{{blog_data.ImgUrl}}"
+              alt="{{blog_data.Title}}"
+              class="relative object-cover h-full w-full rounded-[25px]"
+            />
+            <div class="z-10 absolute bottom-0 p-8 grid">
+              <h1
+                class="font-['Outfit'] font-semibold text-[#FFF] text-[2rem] md:text-[4rem]"
+              >
+                {{blog_data.Title}}
+              </h1>
+              <p class="font-['Outfit'] font-regular text-[#FFF]">
+                @{{blog_data.SubTitle}}
+              </p>
+              <p class="font-['Outfit'] font-regular text-[#FFF]">
+                Created {{blog_data.Date}}
+              </p>
+            </div>
+          </a>
+        </div>
+        {%for data in remaining_data%}
+        <div
+          class="w-[90%] relative h-[30rem] bg-[#2C2c2c] rounded-[25px] md:h-full md:w-full"
+        >
+          <a href="{{url_for('blog',id=data.Id,title=data.Title)}}" class="">
+            <img
+              src="{{data.ImgUrl}}"
+              alt="{{data.Title}}"
+              class="relative object-cover h-full w-full rounded-[25px]"
+            />
+            <div class="z-10 absolute bottom-0 p-8 grid">
+              <h1
+                class="font-['Outfit'] font-semibold text-[#FFF] text-[2rem] md:text-[3rem]"
+              >
+                {{data.Title}}
+              </h1>
+              <p class="font-['Outfit'] font-regular text-[#FFF]">
+                @{{data.SubTitle}}
+              </p>
+              <p class="font-['Outfit'] font-regular text-[#FFF]">
+                Created {{data.Date}}
+              </p>
+            </div>
+          </a>
+        </div>
+        {%endfor%}
+        <h2
+          class="mt-8 text-left w-[90%] md:w-full text-[2.5rem] md:text-[3.5rem] text-[#2C2C2C] font-['Outfit'] font-medium underline underline-[#2C2C2C] underline-offset-2"
+        >
+          Blog you might like
+        </h2>
+        <div
+          class="h-auto w-full md:col-span-2 grid md:grid-cols-3 grid-rows-auto gap-[20px] place-items-center mt-2"
+        >
+        {%for data in blog%}
+          <div
+            class="w-[90%] md:w-full h-[30rem] bg-[#2C2c2c] rounded-[25px] md:h-[20rem] md:w-full"
+          >
+          <a href="{{url_for('blog',id=data.Id,title=data.Title)}}" class="">
+            <img
+              src="{{data.ImgUrl}}"
+              alt="{{data.Title}}"
+              class="relative object-cover h-full w-full rounded-[25px]"
+            />
+            <div class="z-10 absolute bottom-0 p-8 md:p-4 grid">
+              <h1
+                class="font-['Outfit'] font-semibold md:w-[50%] text-[#FFF] text-[2rem] lg:text-[3rem] md:text-[2rem] truncate"
+              >
+                {{data.Title}}
+              </h1>
+              <p class="font-['Outfit'] font-regular text-[#FFF] md:text-[1rem] lg:text-[1.3rem]">
+                @{{data.SubTitle}}
+              </p>
+              <p class="font-['Outfit'] font-regular text-[#FFF] md:text-[.7rem] lg:text-[1rem]">
+                Created {{data.Date}}
+              </p>
+            </div>
+          </a>
+          </div>
+          {%endfor%}
+        </div>
+      </div>
+      {%endif%}
+    </div>
+    {% include "./components/footer.html" %}
+  </body>
+</html>

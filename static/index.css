@@ -1,0 +1,23 @@
+body{
+    overflow-x: hidden;
+}
+
+.nav-active{
+    transform: translateX(0%);
+}
+
+.nav{
+    transform: translateX(100%);
+}
+
+.modal-active{
+    opacity: 100%;
+    display: flex;
+    transform: translateY(0%);
+}
+
+.modal{
+    opacity: 0%;
+    display: none;
+    transform: translateY(-100%);
+}

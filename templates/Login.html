@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+</head>
+<body>
+    {% include "./components/header.html" %}
+    <h1 class="w-full text-center font-['Outfit'] font-semibold text-[#FFD233] text-[2rem] md:text-[3rem] p-8">Login</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+         <p class="font-['Outfit'] font-regular text-center text-[#FFD233] text-[.9rem] w-full md:text-[1rem]">{{ message }}</p>  
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <div class="w-full flex justify-center items-center">
+        <form method="post" class="grid grid-rows-3 gap-4 w-[50%] p-2">
+            <div class="grid grid-rows-2">
+                <label class="font-['Outfit'] font-semibold text-[#FFD233] text-[1rem] w-full md:w-[30%] md:text-[1.5rem]">Username</label>
+                <input name="username" class="font-['Outfit']  font-regular md:font-semibold text-[#2C2C2C] text-[1rem] md:col-span-2 h-[1.5rem] focus:border-[#FFD233] transition ease-in-out duration-1500 delay-150 md:h-[3rem] border-b-[1px] border-[#2c2c2c] outline-none w-full" placeholder="username" type="text">
+            </div>
+            <div class="grid grid-rows-2">
+                <label class="font-['Outfit'] font-semibold text-[#FFD233] text-[1rem] w-full md:w-[30%] md:text-[1.5rem]">Password</label>
+                <input name="password" class="font-['Outfit']  font-regular md:font-semibold text-[#2C2C2C] text-[1rem] md:col-span-2 h-[1.5rem] focus:border-[#FFD233] transition ease-in-out duration-1500 delay-150 md:h-[3rem]  border-b-[1px] border-[#2c2c2c] outline-none w-full" placeholder="password" type="password">
+            </div>
+            <button class="h-[4rem] rounded-full bg-[#FFD233] p-2 text-[#FFF] md:hover:bg-[#fff] md:hover:border-[1px] md:hover:border-[#2c2c2c] md:hover:text-[#2c2c2c] transition ease-in-out duration-1500 delay-150">Login</button>
+        </form>
+    </div>
+    <p class="w-full text-center mb-4">Don't have an account?<a href="{{url_for('register_user')}}" class="underline underline-offset-2"> Register</a></p>
+        {% include "./components/footer.html" %}
+</body>
+</html>

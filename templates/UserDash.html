@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UserDash</title>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  </head>
+  <body>
+    {% include "./components/header.html" %}
+    <div class="w-full p-8 relative">
+      <div class="flex relative mt-12">
+        <div
+          class="w-[3rem] h-[3rem] rounded-full relative row-span-2 bg-[#FFD233]"
+        ></div>
+        <div class="flex justify-between w-full">
+          <div class="">
+            <h1
+              class="text-[1.5rem] font-['Outfit'] relative font-bold text-[#2C2C2C]"
+            >
+              {{user.Username}}
+            </h1>
+            <p
+              class="relative -top-[.5rem] text-[.7rem] font-['Outfit'] font-bold text-[#2C2C2C] opacity-[50%]"
+            >
+              @{{user.Username}}
+            </p>
+          </div>
+          <div class="">
+          <a
+          href="{{url_for('logout')}}"
+          class="transition duration-300 delay-150 ease-in-out hover:text-[#FFD233] hover:border-[#FFD233] text-[#2c2c2c] text-[1rem] p-4 border-[1px] border-[#2C2C2C] rounded-full flex justify-center text-center items-center"
+          >Logout</a
+        >
+        </div>
+        </div>
+      </div>
+      <hr class="my-4 border-[#EAECEF]" />
+      <div class="flex items-center justify-between w-full md:w-[20%]">
+        <a
+          href="{{url_for('create',name=current_user.Username)}}"
+          class="transition duration-300 delay-150 ease-in-out hover:text-[#FFD233] hover:bg-[#2c2c2c] text-[#FFF] text-[1rem] p-4 rounded-full flex justify-center items-center bg-[#FFD233]"
+          >Create Blog</a
+        >
+        <a
+          href=""
+          class="transition duration-300 delay-150 ease-in-out hover:text-[#FFD233] hover:border-[#FFD233] text-[#2c2c2c] text-[1rem] p-4 border-[1px] border-[#2C2C2C] rounded-full flex justify-center text-center items-center"
+          >Edit Profile</a
+        >
+      </div>
+      <hr class="my-4 border-[#EAECEF]" />
+      <div class="grid place-items-center grid-rows-auto md:grid-cols-2 gap-4">
+      {%for blog in blogs%}
+        <div class="h-[15rem] relative w-full bg-[#2c2c2c] rounded-2xl">
+          <img
+              src="{{blog.ImgUrl}}"
+              alt="{{blog.Title}}"
+              class="relative object-cover h-full w-full rounded-2xl"
+            />
+             <div class="z-10 absolute top-0 p-8 md:p-4 grid">
+              <a
+              href="{{url_for('blog',id=blog.Id,title=blog.Title)}}"
+                class="font-['Outfit'] font-semibold text-[#FFF] text-[1.5rem] underline underline-offset-2 lg:text-[2rem]"
+              >
+                {{blog.Title}}
+              </a>
+            </div>
+            <div class="flex absolute bottom-[.9rem] items-center justify-between w-full rounded-xl h-[3rem] p-2">
+              <a href="{{url_for('update',id=blog.Id,title=blog.Title,user=user.Username)}}" class="rounded-xl bg-[#FDD233] px-4 py-2 text-white text-[1.5rem]"><iconify-icon icon="basil:edit-outline"></iconify-icon></a>
+              <button id="delete" class="rounded-xl bg-[#B90E0A] px-4 py-2 text-white text-[1.5rem]"><iconify-icon icon="ic:baseline-delete"></iconify-icon></button>
+            </div>
+        </div>
+        <div id="modal" class="modal justify-center items-center h-full w-full top-0 z-50 absolute transition duration-300 delay-150 ease-in-out">
+              <div class="rounded-xl w-[20rem] p-4 h-[10rem] bg-white grid grid-rows-2 grid-cols-2 gap-2 items-center shadow-2xl">
+                <p class="text-[2c2c2c] col-span-2 text-center p-2">Are You Sure?</p>
+                <button id="cancel" class="rounded-xl border-[1px]  bg-[#B90E0A] p-2 text-white text-[1rem] md:hover:text-[#B90E0A] md:hover:border-[#B90E0A] md:hover:bg-[#FFF] md:hover:shadow-2xl transition duration-300 delay-150 ease-in-out">Cancel</button>
+                <a href="{{url_for('delete',id=blog.Id,title=blog.Title,user=user.Username)}}" class="rounded-xl border-[1px] text-[#B90E0A] border-[#B90E0A] p-2 text-[1rem] text-center  md:hover:text-[#2C2C2C] md:hover:border-[#2C2C2C] transition duration-300 delay-150 ease-in-out">Delete</a>
+              </div>
+        </div>
+      {%endfor%}
+      </div>
+    </div>
+    {% include "./components/footer.html" %}
+  </body>
+</html>
+<script>
+  const deleteBtn=document.getElementById("delete")
+  const modal=document.getElementById("modal")
+  const cancel=document.getElementById("cancel")
+
+  deleteBtn.addEventListener("click",modalopener)
+  cancel.addEventListener("click",cancelprocess)
+
+  function modalopener(){
+    modal.classList.add("modal-active")
+    modal.classList.remove("modal")
+  }
+  function cancelprocess(){
+    modal.classList.remove("modal-active")
+    modal.classList.add("modal")
+  }
+</script>

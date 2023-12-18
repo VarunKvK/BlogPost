@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Header</title>
+    <link rel="stylesheet" href="../static/index.css" />
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  </head>
+  <body>
+    <div
+      class="w-full h-[4rem] flex justify-between font-['Outfit'] transition duration-300 delay-150 ease-in-out fixed z-40 bg-[#FFF]"
+    >
+      <a href="{{url_for('home')}}" class="flex items-center p-4">
+        <svg
+          width="36"
+          height="46"
+          viewBox="0 0 36 46"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11.8128 19.88L3.89581 7.7H7.75281L13.9298 17.415H12.1318L18.3088 7.7H22.1078L14.1328 19.88H11.8128ZM11.3488 28V17.792H14.6838V28H11.3488Z"
+            fill="#FFD233"
+          />
+          <path
+            d="M18.475 39V36.1H24.304C25.3286 36.1 26.1213 35.781 26.682 35.143C27.2426 34.505 27.523 33.7703 27.523 32.939C27.523 32.3783 27.3973 31.8563 27.146 31.373C26.8946 30.8897 26.5273 30.503 26.044 30.213C25.5606 29.923 24.9806 29.778 24.304 29.778H18.475V26.878H23.811C24.681 26.878 25.377 26.6557 25.899 26.211C26.421 25.7663 26.682 25.109 26.682 24.239C26.682 23.369 26.421 22.7117 25.899 22.267C25.377 21.8223 24.681 21.6 23.811 21.6H18.475V18.7H23.898C25.2706 18.7 26.4113 18.9513 27.32 19.454C28.2286 19.9567 28.9053 20.6043 29.35 21.397C29.7946 22.1897 30.017 23.0403 30.017 23.949C30.017 25.0123 29.7173 25.95 29.118 26.762C28.538 27.574 27.6776 28.2313 26.537 28.734L26.798 27.69C28.074 28.212 29.0696 28.9467 29.785 29.894C30.5003 30.8413 30.858 31.953 30.858 33.229C30.858 34.273 30.597 35.23 30.075 36.1C29.5723 36.97 28.8183 37.6757 27.813 38.217C26.827 38.739 25.609 39 24.159 39H18.475ZM16.184 39V18.7H19.519V39H16.184Z"
+            fill="#FFD233"
+          />
+        </svg>
+        <h2 class="hidden md:block text-[#2c2c2c] text-[1rem]">YouBlog</h2>
+      </a>
+      {# Mobile Nav #}
+      <div class="p-8 cursor-pointer sm:hidden block" id="menuicon">
+        <svg
+          width="26"
+          height="11"
+          viewBox="0 0 26 11"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line y1="0.5" x2="25.9959" y2="0.5" stroke="black" />
+          <line y1="10.4961" x2="25.9959" y2="10.4961" stroke="black" />
+        </svg>
+      </div>
+      {# MenuItems #}
+      <div
+        id="menu"
+        class="nav z-50 sm:hidden block transition duration-300 delay-150 ease-in-out absolute h-[100vh] right-0 bg-[#FFD233] p-8"
+      >
+        <div
+          id="back"
+          class="flex cursor-pointer justify-center items-center rotate-[180deg] h-[2rem] w-[2rem] border-[#FFF] md:hover:border-[#2C2C2C] border-[1px] text-[#FFF] md:hover:text-[#2C2C2C] rounded-full transition duration-300 delay-150 ease-in-out"
+        >
+          <iconify-icon icon="ep:back"></iconify-icon>
+        </div>
+        <div class="h-[10%] mt-8 grid grid-rows-4 gap-[5rem]">
+          <a
+            href="{{url_for('create')}}"
+            class="transition duration-300 delay-150 ease-in-out md:hover:text-white text-[#2c2c2c] text-[1rem] h-[2.5rem] w-[8rem] rounded-full flex justify-start sm:justify-center items-center bg-[#FFD233] sm:h-0 sm:w-0 sm:rounded-none"
+            >Write</a
+          >
+          <a
+            href="{% if current_user.is_authenticated%} {{url_for('dash',name=current_user.Username)}} {%else%} {{url_for('login')}} {%endif%}"
+            class="transition duration-300 delay-150 ease-in-out md:hover:text-white text-[#2c2c2c] text-[1rem] w-[2rem] h-[2rem] rounded-full flex justify-center text-center items-center"
+            >User</a
+          >
+        </div>
+      </div>
+      {# Laptop Nav #}
+      <div
+        class="hidden sm:block transition duration-300 delay-150 ease-in-out absolute h-full right-0 relative bg-[#FFF] p-8"
+      >
+        <div class="h-full flex items-center justify-around gap-[5rem]">
+          {#
+          <a
+            href=""
+            class="text-[#2c2c2c] text-[1rem] md:hover:text-[#FFD233] transition duration-300 delay-150 ease-in-out"
+            >Articles</a
+          >
+          #}
+          <a
+            href="{{url_for('create')}}"
+            class="transition duration-300 delay-150 ease-in-out md:hover:text-[#FFD233] md:hover:bg-[#2c2c2c] text-[#2c2c2c] text-[1rem] h-[2.5rem] w-[8rem] rounded-full flex justify-center items-center bg-[#FFD233]"
+            ><iconify-icon icon="jam:write"></iconify-icon>Write</a
+          >
+          <a
+            href="{% if current_user.is_authenticated%} {{url_for('dash',name=current_user.Username)}} {%else%} {{url_for('login')}} {%endif%}"
+            class="transition duration-300 delay-150 ease-in-out md:hover:text-[#FFD233] md:hover:border-[#FFD233] text-[#2c2c2c] text-[1rem] w-[2rem] h-[2rem] border-[1px] border-[#2C2C2C] rounded-full flex justify-center text-center items-center"
+            ><iconify-icon icon="solar:user-bold"></iconify-icon
+          ></a>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const menuIcon = document.getElementById("menuicon");
+    const backIcon = document.getElementById("back");
+    const menu = document.getElementById("menu");
+    menuIcon.addEventListener("click", active);
+    backIcon.addEventListener("click", nonactive);
+    function active() {
+      menu.classList.add("nav-active");
+      menu.classList.remove("nav");
+    }
+    function nonactive() {
+      menu.classList.remove("nav-active");
+      menu.classList.add("nav");
+    }
+  </script>
+</html>

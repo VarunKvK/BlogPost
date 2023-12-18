@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {%if is_edit%}
+    <title>Update-Blog</title>
+    {%else%}
+    <title>Create-Blog</title>
+    {%endif%} {{ ckeditor.load() }}
+  </head>
+  <body>
+    {% include "./components/header.html" %}
+    <div class="p-4 relative top-12 mb-12">
+      {%if is_edit%}
+      <h1
+        class="font-['Outfit'] font-semibold text-[#2C2C2C] text-[3rem] md:text-[5rem] mt-12"
+      >
+        Update Blog
+      </h1>
+      {%else%}
+      <h1
+        class="font-['Outfit'] font-semibold text-[#2C2C2C] text-[3rem] md:text-[5rem] "
+      >
+        Create Blog
+      </h1>
+      {%endif%}
+      <form method="post" class="grid grid-rows-auto items-center p-2 gap-2">
+        <div
+          class="grid grid-cols-1 grid-rows-auto md:flex md:justify-strech items-center"
+        >
+          <label
+            class="font-['Outfit'] font-semibold text-[#2C2C2C] text-[2rem] w-full md:w-[30%] md:text-[3rem] "
+            >Title</label
+          >
+          <input
+            class="md:col-span-2 pl-2  border-[1px] border-[#2c2c2c] outline-none w-full h-[3rem]"
+            placeholder="Title"
+            type="text"
+            name="title"
+            value="{{blog.Title}}"
+          />
+        </div>
+        <div
+          class="grid grid-cols-1 grid-rows-auto md:flex md:justify-strech items-center"
+        >
+          <label
+            class="font-['Outfit'] font-semibold text-[#2C2C2C] text-[2rem] w-full md:w-[30%] md:text-[3rem] "
+            >Image-Url</label
+          >
+          <input
+            class="md:col-span-2 pl-2  border-[1px] border-[#2c2c2c] outline-none w-full h-[3rem]"
+            type="text"
+            name="url"
+            placeholder="Url"
+            value="{{blog.ImgUrl}}"
+          />
+        </div>
+        <div class="h-full grid grid-cols-1 grid-rows-auto md:flex">
+          <label
+            class="font-['Outfit'] font-semibold text-[#2C2C2C] text-[2rem] w-full md:w-[30%] md:text-[3rem] "
+            >Content</label
+          >
+          <div class="relative float-left w-full mb-12">{{ ckeditor.create(value=blog.BlogContent|safe())}}</div>
+        </div>
+        <button
+          class="h-[4rem] rounded-full bg-[#FFD233] p-2 text-[#FFF] md:hover:bg-[#fff] md:hover:border-[1px] md:hover:border-[#2c2c2c] md:hover:text-[#2c2c2c] transition ease-in-out duration-1500 delay-150"
+        >
+        {%if is_edit%}
+        Update
+        {%else%}
+          Create
+          {%endif%}
+        </button>
+      </form>
+    </div>
+    {% include "./components/footer.html" %}
+  </body>
+</html>
