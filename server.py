@@ -151,17 +151,24 @@ def create():
     content = request.form.get("ckeditor")
 
     if request.method == "POST":
-        blog_data = Blogs(
-            userId=current_user.id,
-            Title=title,
-            SubTitle=current_user.Username,
-            BlogContent=content,
-            ImgUrl=url
-        )
-        db.session.add(blog_data)
-        db.session.commit()
-        return redirect(url_for("dash", name=current_user.Username))
+        try:
+            blog_data = Blogs(
+                userId=current_user.id,
+                Title=title,
+                SubTitle=current_user.Username,
+                BlogContent=content,
+                ImgUrl=url
+            )
+            db.session.add(blog_data)
+            db.session.commit()
+            return redirect(url_for("dash", name=current_user.Username))
+        except Exception as e:
+            db.session.rollback()
+            flash(f"An error occurred: {str(e)}", "error")
+            return redirect(url_for("create"))
+
     return render_template("Create.html", blog=title)
+
 
 
 @app.route("/updateblog/<string:user>/<int:id>/<string:title>", methods=["GET", "POST"])
